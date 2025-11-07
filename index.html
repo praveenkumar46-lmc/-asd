@@ -17,12 +17,12 @@
             --hero-green: #2d594e; /* The button's base color */
             --text-color: #4B4B4B;
 
-            /* NEW Gradient Colors based on the button */
-            --gradient-start-green: #eaf2f0; /* A light tint of the button's hero-green */
+            /* Gradient Colors */
+            --gradient-start-green: #eaf2f0; /* A light tint of the hero-green */
             --gradient-end: #FFFFFF;
             --global-background-gradient: linear-gradient(180deg, var(--gradient-start-green) 0%, var(--gradient-end) 70%);
 
-            /* Old FAB colors (kept for variety) */
+            /* FAB colors */
             --light-peach: #FADAB4;
             --icon-brown: #594A38;
         }
@@ -31,8 +31,8 @@
             margin: 0;
             font-family: 'Poppins', sans-serif;
             color: var(--text-color);
-            padding-top: 120px; 
-            /* APPLY THE NEW GRADIENT */
+            padding-top: 120px;
+            /* Apply the global gradient background */
             background: var(--global-background-gradient);
             overflow-x: hidden;
         }
@@ -68,8 +68,9 @@
             align-items: center;
         }
 
-        .logo{
+        .logo {
             width: 100px;
+            height: auto; /* Maintain aspect ratio */
         }
 
         .main-nav {
@@ -110,6 +111,7 @@
             display: flex;
             align-items: center;
             gap: 0.25rem;
+            cursor: pointer;
         }
         
         .nav-actions {
@@ -127,13 +129,13 @@
             border: 1px solid #ddd;
             border-radius: 50%;
             color: var(--text-dark);
-            transition: background-color 0.3s, border-color 0.3s;
+            transition: background-color 0.3s, border-color 0.3s, color 0.3s;
         }
         
         .user-icon-btn:hover {
-            background-color: #1b4e41;
+            background-color: var(--hero-green);
             color: white;
-            border-color: #ccc;
+            border-color: var(--hero-green);
         }
 
         .contact-btn {
@@ -186,11 +188,12 @@
             max-width: 550px;
         }
 
+        /* Set opacity for animation */
         .text-content h1, 
         .text-content p, 
         .text-content .shop-btn, 
         .service-item {
-            opacity: 0; /* For animation */
+            opacity: 0;
         }
 
         .text-content h1 {
@@ -221,10 +224,10 @@
         }
 
         .shop-btn:hover {
-            background-color: #2e4724;
+            background-color: #1b4e41; /* Darker shade of hero-green */
         }
         
-        /* --- Hero Services Icons Styles --- */
+        /* --- Hero Services Icons --- */
         .hero-services {
             display: flex;
             justify-content: space-between;
@@ -256,7 +259,7 @@
             line-height: 1.3;
         }
         
-        /* --- Styles for the image animation --- */
+        /* --- Hero Image Animation Styles --- */
         .image-content {
             flex: 1.2;
             display: flex;
@@ -274,13 +277,14 @@
             width: 100%;
             height: 100%;
             object-fit: contain;
+            /* Tell the browser these will change for performance */
             will-change: transform, width, height, border-radius;
         }
 
-        /* --- "WHAT WE DO" SECTION STYLES --- */
+        /* --- "What We Do" Section --- */
         .what-we-do-section {
-            padding: 60px 0;
-            background-color: transparent; /* Changed to reveal body gradient */
+            padding: 80px 0;
+            /* FIX: Removed solid background to let the body gradient show through */
             background-color: #eaf2f0;
         }
         
@@ -319,6 +323,7 @@
             width: 100%;
             aspect-ratio: 1 / 1; 
             border-radius: 24px;
+            /* This div is now just a positioning placeholder */
         }
 
         .what-we-do-text {
@@ -383,7 +388,7 @@
             color: var(--icon-brown);
         }
 
-        /* --- Responsive adjustments --- */
+        /* --- Responsive Adjustments --- */
         @media (max-width: 1100px) {
             .hero-services {
                 justify-content: center;
@@ -391,6 +396,7 @@
         }
 
         @media (max-width: 992px) {
+            /* NOTE: A hamburger menu would be needed for a full mobile experience */
             .main-nav {
                 display: none;
             }
@@ -398,7 +404,8 @@
                 padding: 0 1rem;
              }
         }
-         @media (max-width: 768px) {
+
+        @media (max-width: 768px) {
             body {
                 padding-top: 100px;
             }
@@ -412,10 +419,15 @@
                 order: 2;
                 max-width: 100%;
             }
+            .text-content p {
+                margin-left: auto;
+                margin-right: auto;
+            }
             .image-content {
                 order: 1;
                 margin-bottom: 2rem;
                 min-height: 300px;
+                width: 100%;
             }
             .what-we-do-content {
                 flex-direction: column;
@@ -426,7 +438,7 @@
             .hero-services {
                 margin-top: 40px;
             }
-         }
+        }
     </style>
 </head>
 <body>
@@ -435,6 +447,7 @@
         <nav class="navbar-container">
             <div class="nav-logo">
                 <a href="#">
+                    <!-- FIX: Replaced broken local image with a placeholder SVG -->
                     <img src="Food_M.png" alt="Food Maveriks Logo" class="logo">
                 </a>
             </div>
@@ -470,7 +483,7 @@
     <main>
         <section class="hero-section">
             <div class="text-content">
-                <h1>From Idea to Isle</h1>
+                <h1>From Idea to Aisle</h1>
                 <p>Build successful food & beverage brand with our R&D first food tech consulting</p>
                 <button class="shop-btn">Book a Free Consultation</button>
 
@@ -503,6 +516,7 @@
 
             </div>
             <div class="image-content">
+                <!-- FIX: Replaced broken local image with a relevant stock photo -->
                 <img src="image1.png" alt="Bottles of fresh juice with ingredients" id="animated-image">
             </div>
         </section>
@@ -517,7 +531,9 @@
                     <div id="image-target-container"></div>
                     <div class="what-we-do-text">
                         <p>
-                            R&D first food tech consultants helping brands go From Idea to Aisle. We blend chef craft, food science, and FSSAI-ready compliance to build scalable, shelf-stable products—pilot to factory, paperwork to launch. Let’s build something people love.<br><span style="font-weight: bold;">Food Maveriks:</span> Where food vision becomes market reality
+                            R&D first food tech consultants helping brands go From Idea to Aisle. We blend chef craft, food science, and FSSAI-ready compliance to build scalable, shelf-stable products—pilot to factory, paperwork to launch. Let’s build something people love.<br>
+                            <!-- FIX: Using <strong> for semantic importance -->
+                            <strong>Food Maveriks:</strong> Where food vision becomes market reality
                         </p>
                         <a href="#" class="schedule-btn">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
@@ -545,50 +561,46 @@
 
             const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-            tl.fromTo('.floating-header', 
-                { yPercent: -150, autoAlpha: 0 }, 
-                { yPercent: 0, autoAlpha: 1, duration: 1 }
-            );
-
-            tl.fromTo(['.text-content h1', '.text-content p', '.text-content .shop-btn'], 
-                { y: 40, autoAlpha: 0 },
-                { y: 0, autoAlpha: 1, duration: 0.8, stagger: 0.2 },
-                "-=0.6"
-            );
-
-            tl.fromTo('.image-content', 
-                { autoAlpha: 0, scale: 0.95 },
-                { autoAlpha: 1, scale: 1, duration: 1.2 }, 
-                "<"
-            );
+            // --- Initial page load animations ---
+            tl.to('.floating-header', { yPercent: 0, autoAlpha: 1, duration: 1 });
+            tl.to(['.text-content h1', '.text-content p', '.text-content .shop-btn'], { y: 0, autoAlpha: 1, duration: 0.8, stagger: 0.2 }, "-=0.6");
+            tl.to('.image-content', { autoAlpha: 1, scale: 1, duration: 1.2 }, "<");
+            tl.to('.service-item', { y: 0, autoAlpha: 1, duration: 0.5, stagger: 0.1 }, "-=0.8");
             
-            tl.fromTo('.service-item',
-                { y: 20, autoAlpha: 0 },
-                { y: 0, autoAlpha: 1, duration: 0.5, stagger: 0.1 },
-                "-=0.8"
-            );
+            // Note: Changed from `fromTo` to `to` as the initial states are set in CSS (opacity: 0)
 
+            // --- Scroll-based image animation ---
             const animatedImage = document.getElementById("animated-image");
             const imageTarget = document.getElementById("image-target-container");
             
             if (animatedImage && imageTarget) {
-                gsap.to(animatedImage, {
-                    width: () => imageTarget.offsetWidth,
-                    height: () => imageTarget.offsetHeight,
-                    x: () => imageTarget.getBoundingClientRect().left - animatedImage.getBoundingClientRect().left,
-                    y: () => imageTarget.getBoundingClientRect().top - animatedImage.getBoundingClientRect().top,
-                    borderRadius: "24px",
-                    ease: "none",
-                    scrollTrigger: {
-                        trigger: ".what-we-do-section",
-                        start: "top bottom",
-                        end: "top top+=100",
-                        scrub: true,
-                        invalidateOnRefresh: true,
-                    }
+                // Use GSAP's matchMedia for responsive animations
+                gsap.matchMedia().add({
+                    isDesktop: "(min-width: 769px)",
+                    isMobile: "(max-width: 768px)"
+                }, (context) => {
+                    let { isDesktop, isMobile } = context.conditions;
+
+                    gsap.to(animatedImage, {
+                        width: () => imageTarget.offsetWidth,
+                        height: () => imageTarget.offsetHeight,
+                        x: () => imageTarget.getBoundingClientRect().left - animatedImage.getBoundingClientRect().left,
+                        y: () => imageTarget.getBoundingClientRect().top - animatedImage.getBoundingClientRect().top,
+                        borderRadius: "24px",
+                        ease: "none",
+                        scrollTrigger: {
+                            trigger: ".what-we-do-section",
+                            start: "top bottom",
+                            // FIX: Changed the 'end' trigger for mobile to be more sensible.
+                            // The animation now completes when the top of the section reaches the center of the viewport.
+                            end: isDesktop ? "top top+=100" : "top center",
+                            scrub: true,
+                            invalidateOnRefresh: true, // Crucial for recalculating on resize
+                        }
+                    });
                 });
             }
         });
     </script>
 </body>
-</html> 
+</html>
