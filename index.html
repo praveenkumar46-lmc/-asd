@@ -10,7 +10,7 @@
     <style>
         :root {
             /* Main Site Colors */
-            --nav-bg: #F6F4EE;
+            --nav-bg: #fdfdfd;
             --nav-green: #183D3D;
             --logo-teal: #48A9A6;
             --text-dark: #2C2C2C;
@@ -281,7 +281,7 @@
         .what-we-do-section {
             padding: 60px 0;
             background-color: transparent; /* Changed to reveal body gradient */
-            margin-bottom: 80px; /* Add space at the bottom */
+            background-color: #eaf2f0;
         }
         
         .container {
@@ -415,8 +415,7 @@
             .image-content {
                 order: 1;
                 margin-bottom: 2rem;
-                /* --- FIX IS HERE --- */
-                height: 300px; /* Use explicit height instead of min-height */
+                min-height: 300px;
             }
             .what-we-do-content {
                 flex-direction: column;
@@ -501,6 +500,7 @@
                         <span>Contract<br>Manufacturing</span>
                     </div>
                 </div>
+
             </div>
             <div class="image-content">
                 <img src="image1.png" alt="Bottles of fresh juice with ingredients" id="animated-image">
@@ -543,7 +543,6 @@
         document.addEventListener("DOMContentLoaded", function() {
             gsap.registerPlugin(ScrollTrigger);
 
-            // --- Page Load Animation Timeline ---
             const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
             tl.fromTo('.floating-header', 
@@ -569,55 +568,27 @@
                 "-=0.8"
             );
 
-            // --- CORRECTED RESPONSIVE Scroll Animation ---
             const animatedImage = document.getElementById("animated-image");
             const imageTarget = document.getElementById("image-target-container");
             
             if (animatedImage && imageTarget) {
-                // Use GSAP's matchMedia for responsive animations
-                let mm = gsap.matchMedia();
-
-                // --- Desktop Animation (screens wider than 768px) ---
-                mm.add("(min-width: 769px)", () => {
-                    gsap.to(animatedImage, {
-                        // The original logic, which works on desktop
-                        width: () => imageTarget.offsetWidth,
-                        height: () => imageTarget.offsetHeight,
-                        x: () => imageTarget.getBoundingClientRect().left - animatedImage.getBoundingClientRect().left,
-                        y: () => imageTarget.getBoundingClientRect().top - animatedImage.getBoundingClientRect().top,
-                        borderRadius: "24px",
-                        ease: "none",
-                        scrollTrigger: {
-                            trigger: ".what-we-do-section",
-                            start: "top bottom",    // Starts when the top of the target section hits the viewport bottom
-                            end: "top top",         // Ends when the top of the target section hits the viewport top
-                            scrub: true,
-                            invalidateOnRefresh: true, // Recalculates on resize
-                        }
-                    });
-                });
-
-                // --- Mobile Animation (screens 768px or narrower) ---
-                mm.add("(max-width: 768px)", () => {
-                    gsap.to(animatedImage, {
-                        // The values are calculated the same way, but will be correct for the mobile layout
-                        width: () => imageTarget.offsetWidth,
-                        height: () => imageTarget.offsetHeight,
-                        x: () => imageTarget.getBoundingClientRect().left - animatedImage.getBoundingClientRect().left,
-                        y: () => imageTarget.getBoundingClientRect().top - animatedImage.getBoundingClientRect().top,
-                        borderRadius: "24px",
-                        ease: "none",
-                        scrollTrigger: {
-                            trigger: ".what-we-do-section", // We still trigger based on the destination section
-                            start: "top bottom",    // Start when the destination section enters the view
-                            end: "center center",   // End when the destination section is centered in the view
-                            scrub: true,
-                            invalidateOnRefresh: true,
-                        }
-                    });
+                gsap.to(animatedImage, {
+                    width: () => imageTarget.offsetWidth,
+                    height: () => imageTarget.offsetHeight,
+                    x: () => imageTarget.getBoundingClientRect().left - animatedImage.getBoundingClientRect().left,
+                    y: () => imageTarget.getBoundingClientRect().top - animatedImage.getBoundingClientRect().top,
+                    borderRadius: "24px",
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: ".what-we-do-section",
+                        start: "top bottom",
+                        end: "top top+=100",
+                        scrub: true,
+                        invalidateOnRefresh: true,
+                    }
                 });
             }
         });
     </script>
 </body>
-</html>
+</html> 
