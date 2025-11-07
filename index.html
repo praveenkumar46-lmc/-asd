@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Maveriks - From Idea to Isle</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Main Site Colors */
+            --nav-bg: #F6F4EE;
+            --nav-green: #183D3D;
+            --logo-teal: #48A9A6;
+            --text-dark: #2C2C2C;
+            --hero-green: #2d594e; /* The button's base color */
+            --text-color: #4B4B4B;
+
+            /* NEW Gradient Colors based on the button */
+            --gradient-start-green: #eaf2f0; /* A light tint of the button's hero-green */
+            --gradient-end: #FFFFFF;
+            --global-background-gradient: linear-gradient(180deg, var(--gradient-start-green) 0%, var(--gradient-end) 70%);
+
+            /* Old FAB colors (kept for variety) */
+            --light-peach: #FADAB4;
+            --icon-brown: #594A38;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-color);
+            padding-top: 120px; 
+            /* APPLY THE NEW GRADIENT */
+            background: var(--global-background-gradient);
+            overflow-x: hidden;
+        }
+        
+        /* --- Floating Header --- */
+        .floating-header {
+            position: fixed;
+            top: 20px;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 0 2rem;
+            opacity: 0; /* For animation */
+        }
+        
+        .navbar-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            background-color: var(--nav-bg);
+            border-radius: 999px;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .nav-logo a {
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo{
+            width: 100px;
+        }
+
+        .main-nav {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .main-nav a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            font-size: 1rem;
+            transition: color 0.3s;
+            position: relative;
+            padding-bottom: 5px;
+        }
+
+        .main-nav a.active {
+            font-weight: 600;
+        }
+        
+        .main-nav a.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--text-dark);
+        }
+
+        .main-nav a:hover {
+            color: #000;
+        }
+        
+        .dropdown-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-icon-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border: 1px solid #ddd;
+            border-radius: 50%;
+            color: var(--text-dark);
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        
+        .user-icon-btn:hover {
+            background-color: #1b4e41;
+            color: white;
+            border-color: #ccc;
+        }
+
+        .contact-btn {
+            background-color: var(--nav-green);
+            color: #FFFFFF;
+            border: none;
+            border-radius: 50px;
+            padding: 8px 10px 8px 24px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            transition: background-color 0.3s;
+        }
+
+        .contact-btn:hover {
+            background-color: #112a2a;
+        }
+        
+        .contact-arrow-circle {
+            background-color: #FFFFFF;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .contact-arrow-circle svg {
+            color: var(--nav-green);
+        }
+        
+        /* --- Hero Section --- */
+        .hero-section {
+            display: flex;
+            align-items: center;
+            padding: 40px 40px 60px 40px; 
+            max-width: 1300px;
+            margin: 0 auto;
+            gap: 40px;
+            margin-bottom: 100px;
+        }
+
+        .text-content {
+            flex: 1;
+            max-width: 550px;
+        }
+
+        .text-content h1, 
+        .text-content p, 
+        .text-content .shop-btn, 
+        .service-item {
+            opacity: 0; /* For animation */
+        }
+
+        .text-content h1 {
+            font-size: 64px;
+            font-weight: 600;
+            color: var(--hero-green);
+            line-height: 1.1;
+            margin: 0 0 25px 0;
+        }
+
+        .text-content p {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 40px;
+            max-width: 450px;
+        }
+
+        .shop-btn {
+            background-color: var(--hero-green);
+            color: #FFFFFF;
+            border: none;
+            border-radius: 50px;
+            padding: 16px 40px;
+            font-size: 18px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .shop-btn:hover {
+            background-color: #2e4724;
+        }
+        
+        /* --- Hero Services Icons Styles --- */
+        .hero-services {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 60px;
+        }
+
+        .service-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: 80px;
+        }
+
+        .service-item svg {
+            width: 36px;
+            height: 36px;
+            color: var(--hero-green);
+            margin-bottom: 12px;
+        }
+
+        .service-item span {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--hero-green);
+            line-height: 1.3;
+        }
+        
+        /* --- Styles for the image animation --- */
+        .image-content {
+            flex: 1.2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            min-height: 450px;
+            opacity: 0; /* For animation */
+        }
+        
+        #animated-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            will-change: transform, width, height, border-radius;
+        }
+
+        /* --- "WHAT WE DO" SECTION STYLES --- */
+        .what-we-do-section {
+            padding: 60px 0;
+            background-color: transparent; /* Changed to reveal body gradient */
+            margin-bottom: 80px; /* Add space at the bottom */
+        }
+        
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-header {
+            margin-bottom: 40px;
+        }
+
+        .eyebrow-text {
+            color: var(--nav-green);
+            font-weight: 600;
+            font-size: 1rem;
+            margin: 0;
+        }
+
+        .section-header h2 {
+            color: var(--nav-green);
+            font-size: 2.75rem;
+            font-weight: 700;
+            margin: 5px 0 0 0;
+        }
+
+        .what-we-do-content {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+        
+        #image-target-container {
+            flex: 1;
+            width: 100%;
+            aspect-ratio: 1 / 1; 
+            border-radius: 24px;
+        }
+
+        .what-we-do-text {
+            flex: 1;
+        }
+
+        .what-we-do-text p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--nav-green);
+            margin: 0 0 30px 0;
+        }
+        
+        .schedule-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background-color: var(--nav-green);
+            color: #FFFFFF;
+            padding: 14px 24px;
+            border-radius: 999px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        .schedule-btn:hover {
+            background-color: #112a2a;
+        }
+
+        .schedule-btn svg {
+            width: 20px;
+            height: 20px;
+        }
+        
+        /* --- Floating Action Button --- */
+        .chat-fab {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--light-peach);
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: transform 0.2s;
+            z-index: 999;
+        }
+        
+        .chat-fab:hover {
+            transform: scale(1.1);
+        }
+
+        .chat-fab svg {
+            width: 28px;
+            height: 28px;
+            color: var(--icon-brown);
+        }
+
+        /* --- Responsive adjustments --- */
+        @media (max-width: 1100px) {
+            .hero-services {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .main-nav {
+                display: none;
+            }
+             .floating-header {
+                padding: 0 1rem;
+             }
+        }
+         @media (max-width: 768px) {
+            body {
+                padding-top: 100px;
+            }
+            .hero-section {
+                flex-direction: column;
+                text-align: center;
+                padding: 40px 20px;
+                margin-bottom: 50px;
+            }
+            .text-content {
+                order: 2;
+                max-width: 100%;
+            }
+            .image-content {
+                order: 1;
+                margin-bottom: 2rem;
+                /* --- FIX IS HERE --- */
+                height: 300px; /* Use explicit height instead of min-height */
+            }
+            .what-we-do-content {
+                flex-direction: column;
+            }
+            .section-header h2 {
+                font-size: 2.25rem;
+            }
+            .hero-services {
+                margin-top: 40px;
+            }
+         }
+    </style>
+</head>
+<body>
+    
+    <header class="floating-header">
+        <nav class="navbar-container">
+            <div class="nav-logo">
+                <a href="#">
+                    <img src="Food_M.png" alt="Food Maveriks Logo" class="logo">
+                </a>
+            </div>
+            <div class="main-nav">
+                <a href="#" class="active">Home</a>
+                <a href="#">About</a>
+                <a href="#">Service</a>
+                <a href="#" class="dropdown-toggle">Others
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+            </div>
+            <div class="nav-actions">
+                <a href="#" class="user-icon-btn" aria-label="User account">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 21V19C20 16.7909 18.2091 15 16 15H8C5.79086 15 4 16.7909 4 19V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 11C14.2091 11 16 9.20914 16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7C8 9.20914 9.79086 11 12 11Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+                <a href="#" class="contact-btn">
+                    Contact Us
+                    <span class="contact-arrow-circle">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                           <path d="M7 17L17 7M17 7H10M17 7V14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero-section">
+            <div class="text-content">
+                <h1>From Idea to Isle</h1>
+                <p>Build successful food & beverage brand with our R&D first food tech consulting</p>
+                <button class="shop-btn">Book a Free Consultation</button>
+
+                <div class="hero-services">
+                    <div class="service-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><path d="M10 13a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"></path><path d="M10 19a1 1.001 1.001 0 0 0 0-2 1 1 0 0 0 0 2z"></path><path d="m14 17-4-4"></path></svg>
+                        <span>Formulation</span>
+                    </div>
+                    <div class="service-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline><polyline points="16 7 22 7 22 13"></polyline></svg>
+                        <span>Pilot & Scale Up</span>
+                    </div>
+                    <div class="service-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a2 2 0 0 0-1.1 1.69l-.02 9.48a2 2 0 0 0 1.1 1.69l8.56 3.9a2 2 0 0 0 1.66 0l8.56-3.9a2 2 0 0 0 1.1-1.69l.02-9.48a2 2 0 0 0-1.1-1.69z"></path><path d="m9 12 2 2 4-4"></path></svg>
+                        <span>FSSAI & Claims</span>
+                    </div>
+                    <div class="service-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg>
+                        <span>Shelf-Life</span>
+                    </div>
+                    <div class="service-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22v-5"></path><path d="M10 13a2 2 0 1 0 4 0 2 2 0 0 0-4 0z"></path><path d="M12 22a8.99 8.99 0 0 0-8.69-5.46L3 16.27V13a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v3.27l-.31.27A8.99 8.99 0 0 0 12 22z"></path><path d="M2 13h20"></path><path d="M18 11V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v7"></path></svg>
+                        <span>Factory Setup</span>
+                    </div>
+                     <div class="service-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 13.4V7.5L14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h5.5"></path><polyline points="14 2 14 8 20 8"></polyline><path d="M18.4 22a2.4 2.4 0 1 0 0-4.8 2.4 2.4 0 0 0 0 4.8Z"></path><path d="M14.8 18.2a2.4 2.4 0 1 0 0-4.8 2.4 2.4 0 0 0 0 4.8Z"></path><path d="M17.8 17.2 15.8 15"></path></svg>
+                        <span>Contract<br>Manufacturing</span>
+                    </div>
+                </div>
+            </div>
+            <div class="image-content">
+                <img src="image1.png" alt="Bottles of fresh juice with ingredients" id="animated-image">
+            </div>
+        </section>
+
+        <section class="what-we-do-section">
+            <div class="container">
+                <div class="section-header">
+                    <p class="eyebrow-text">• About Us</p>
+                    <h2>What We Do</h2>
+                </div>
+                <div class="what-we-do-content">
+                    <div id="image-target-container"></div>
+                    <div class="what-we-do-text">
+                        <p>
+                            R&D first food tech consultants helping brands go From Idea to Aisle. We blend chef craft, food science, and FSSAI-ready compliance to build scalable, shelf-stable products—pilot to factory, paperwork to launch. Let’s build something people love.<br><span style="font-weight: bold;">Food Maveriks:</span> Where food vision becomes market reality
+                        </p>
+                        <a href="#" class="schedule-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"></path>
+                            </svg>
+                            <span>Schedule Meeting</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <button class="chat-fab" aria-label="Open chat">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+    </button>
+    
+    <!-- GSAP Libraries & Script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            gsap.registerPlugin(ScrollTrigger);
+
+            // --- Page Load Animation Timeline ---
+            const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+            tl.fromTo('.floating-header', 
+                { yPercent: -150, autoAlpha: 0 }, 
+                { yPercent: 0, autoAlpha: 1, duration: 1 }
+            );
+
+            tl.fromTo(['.text-content h1', '.text-content p', '.text-content .shop-btn'], 
+                { y: 40, autoAlpha: 0 },
+                { y: 0, autoAlpha: 1, duration: 0.8, stagger: 0.2 },
+                "-=0.6"
+            );
+
+            tl.fromTo('.image-content', 
+                { autoAlpha: 0, scale: 0.95 },
+                { autoAlpha: 1, scale: 1, duration: 1.2 }, 
+                "<"
+            );
+            
+            tl.fromTo('.service-item',
+                { y: 20, autoAlpha: 0 },
+                { y: 0, autoAlpha: 1, duration: 0.5, stagger: 0.1 },
+                "-=0.8"
+            );
+
+            // --- CORRECTED RESPONSIVE Scroll Animation ---
+            const animatedImage = document.getElementById("animated-image");
+            const imageTarget = document.getElementById("image-target-container");
+            
+            if (animatedImage && imageTarget) {
+                // Use GSAP's matchMedia for responsive animations
+                let mm = gsap.matchMedia();
+
+                // --- Desktop Animation (screens wider than 768px) ---
+                mm.add("(min-width: 769px)", () => {
+                    gsap.to(animatedImage, {
+                        // The original logic, which works on desktop
+                        width: () => imageTarget.offsetWidth,
+                        height: () => imageTarget.offsetHeight,
+                        x: () => imageTarget.getBoundingClientRect().left - animatedImage.getBoundingClientRect().left,
+                        y: () => imageTarget.getBoundingClientRect().top - animatedImage.getBoundingClientRect().top,
+                        borderRadius: "24px",
+                        ease: "none",
+                        scrollTrigger: {
+                            trigger: ".what-we-do-section",
+                            start: "top bottom",    // Starts when the top of the target section hits the viewport bottom
+                            end: "top top",         // Ends when the top of the target section hits the viewport top
+                            scrub: true,
+                            invalidateOnRefresh: true, // Recalculates on resize
+                        }
+                    });
+                });
+
+                // --- Mobile Animation (screens 768px or narrower) ---
+                mm.add("(max-width: 768px)", () => {
+                    gsap.to(animatedImage, {
+                        // The values are calculated the same way, but will be correct for the mobile layout
+                        width: () => imageTarget.offsetWidth,
+                        height: () => imageTarget.offsetHeight,
+                        x: () => imageTarget.getBoundingClientRect().left - animatedImage.getBoundingClientRect().left,
+                        y: () => imageTarget.getBoundingClientRect().top - animatedImage.getBoundingClientRect().top,
+                        borderRadius: "24px",
+                        ease: "none",
+                        scrollTrigger: {
+                            trigger: ".what-we-do-section", // We still trigger based on the destination section
+                            start: "top bottom",    // Start when the destination section enters the view
+                            end: "center center",   // End when the destination section is centered in the view
+                            scrub: true,
+                            invalidateOnRefresh: true,
+                        }
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>
