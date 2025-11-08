@@ -20,7 +20,7 @@
             --card-border: #edf3f0;
             --light-peach: #FADAB4;
             --icon-brown: #594A38;
-            --global-bg-color: #eaf2f0; /* MODIFIED: Single background color */
+            --global-bg-color: #eaf2f0;
             
             /* Footer Colors */
             --footer-bg: #212929;
@@ -35,7 +35,7 @@
             font-family: 'Poppins', sans-serif;
             color: var(--text-color);
             padding-top: 120px;
-            background-color: var(--global-bg-color); /* MODIFIED: Set to single color */
+            background-color: var(--global-bg-color);
             overflow-x: hidden;
         }
         
@@ -97,7 +97,7 @@
         #animated-image { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; will-change: transform, width, height, border-radius; }
 
         /* --- "What We Do" Section --- */
-        .what-we-do-section { padding: 40px 0 0 0; /* MODIFIED: Removed background gradient */ }
+        .what-we-do-section { padding: 40px 0 0 0; }
         .what-we-do-content { display: flex; align-items: center; gap: 3rem; }
         #image-target-container { flex: 1; width: 100%; aspect-ratio: 1 / 1; border-radius: 24px; }
         .what-we-do-text { flex: 1; }
@@ -130,7 +130,6 @@
             align-items: stretch;
             box-sizing: border-box;
             overflow: hidden;
-            /* MODIFIED: Removed background gradient */
         }
 
         .services-left {
@@ -231,7 +230,7 @@
         .service-card .card-top { padding: 1.25rem 1.7rem 0.5rem; }
 
         .service-card .service-number {
-            background: #eaf2f0; /* Kept the light green for this detail */
+            background: var(--global-bg-color);
             border-radius: 0.62rem;
             padding: 0.32rem 0.85rem;
             font-size: 1rem;
@@ -361,6 +360,75 @@
             right: -20px; 
         }
 
+        /* --- MEMBER LOGO CAROUSEL STYLES --- */
+        .member-logos-carousel {
+          background: transparent; /* MODIFIED: Matched to site background */
+          padding: 48px 0;
+          text-align: center;
+          overflow: hidden;
+        }
+
+        .member-title {
+          font-size: 2rem;
+          margin-bottom: 32px;
+          color: var(--hero-green); /* MODIFIED: Matched to site titles */
+          font-weight: bold;
+          letter-spacing: 1px;
+        }
+
+        .carousel-outer {
+          width: 100%;
+          max-width: 1100px;
+          margin: 0 auto;
+          overflow: hidden;
+          position: relative;
+          padding: 10px 0;
+        }
+
+        .carousel-inner {
+          display: flex;
+          gap: 36px;
+          animation: carousel-loop 25s linear infinite; /* Adjusted speed slightly */
+          width: max-content;
+        }
+
+        .carousel-logo {
+          flex: 0 0 auto;
+          width: 120px;
+          height: 72px;
+          background: #fff;
+          border-radius: 10px;
+          box-shadow: 0 2px 10px rgba(44, 108, 61, 0.07);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: box-shadow 0.18s, transform 0.18s;
+        }
+
+        .carousel-logo img {
+          max-width: 92px;
+          max-height: 44px;
+          object-fit: contain;
+          opacity: 0.88;
+          transition: opacity 0.2s, filter 0.18s;
+        }
+
+        .carousel-logo:hover {
+          transform: scale(1.08);
+          box-shadow: 0 6px 18px rgba(44, 108, 61, 0.14);
+        }
+
+        .carousel-logo:hover img {
+          opacity: 1;
+          filter: none;
+        }
+
+        @keyframes carousel-loop {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+
+
         /* --- Floating Action Button --- */
         .chat-fab { position: fixed; bottom: 30px; right: 30px; background-color: var(--light-peach); border: none; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); transition: transform 0.2s; z-index: 999; }
         .chat-fab:hover { transform: scale(1.1); }
@@ -420,10 +488,9 @@
             .text-content p { margin-left: auto; margin-right: auto; }
             .image-content { order: 1; margin-bottom: 2rem; min-height: 300px; width: 100%; }
             .what-we-do-content { flex-direction: column; }
-            .section-header h2, .visionaries-title, .services-left .text-block h2, .what-we-do-text h1 { font-size: 2.25rem; }
+            .section-header h2, .visionaries-title, .services-left .text-block h2, .what-we-do-text h1, .member-title { font-size: 2.25rem; }
             .hero-checklist { grid-template-columns: 1fr; display: inline-grid; text-align: left; }
 
-            /* Video gallery responsive */
             .arrow.prev-arrow { left: 10px; }
             .arrow.next-arrow { right: 10px; }
             .gallery-item {
@@ -438,6 +505,11 @@
             .service-card { flex-basis: 75vw; height: 350px; }
             .services-left { padding: 0 5vw 1.5rem; }
             .services-right { padding: 0 0 2rem 5vw; }
+
+            /* Logo Carousel Responsive */
+            .carousel-logo { width: 80px; height: 50px; }
+            .carousel-inner { gap: 18px; }
+            .member-title { font-size: 1.5rem; }
         }
     </style>
 </head>
@@ -580,6 +652,33 @@
                     </div>
                     <button class="arrow next-arrow">&gt;</button>
                 </div>
+            </div>
+        </section>
+
+        <!-- Member Logo Carousel Section -->
+        <section class="member-logos-carousel">
+            <h2 class="member-title">Our Members</h2>
+            <div class="carousel-outer">
+              <div class="carousel-inner">
+                <!-- Using placeholders, replace with your actual logo files -->
+                <div class="carousel-logo"><img src="https://via.placeholder.com/100x40.png?text=LOGO+1" alt="Member 1" /></div>
+                <div class="carousel-logo"><img src="https://via.placeholder.com/100x40.png?text=LOGO+2" alt="Member 2" /></div>
+                <div class="carousel-logo"><img src="https://via.placeholder.com/100x40.png?text=LOGO+3" alt="Member 3" /></div>
+                <div class="carousel-logo"><img src="https://via.placeholder.com/100x40.png?text=LOGO+4" alt="Member 4" /></div>
+                <div class="carousel-logo"><img src="https://via.placeholder.com/100x40.png?text=LOGO+5" alt="Member 5" /></div>
+                <div class="carousel-logo"><img src="https://via.placeholder.com/100x40.png?text=LOGO+6" alt="Member 6" /></div>
+                <div class="carousel-logo"><img src="https://via.placeholder.com/100x40.png?text=LOGO+7" alt="Member 7" /></div>
+                <div class="carousel-logo"><img src="https://via.placeholder.com/100x40.png?text=LOGO+8" alt="Member 8" /></div>
+                <!-- Repeat logos for seamless infinite loop -->
+                <div class="carousel-logo"><img src="https://via.placeholder.com/100x40.png?text=LOGO+1" alt="Member 1" /></div>
+                <div class="carousel-logo"><img src="https://via.placeholder.com/100x40.png?text=LOGO+2" alt="Member 2" /></div>
+                <div class="carousel-logo"><img src="https://via.placeholder.com/100x40.png?text=LOGO+3" alt="Member 3" /></div>
+                <div class="carousel-logo"><img src="https://via.placeholder.com/100x40.png?text=LOGO+4" alt="Member 4" /></div>
+                <div class="carousel-logo"><img src="https://via.placeholder.com/100x40.png?text=LOGO+5" alt="Member 5" /></div>
+                <div class="carousel-logo"><img src="https://via.placeholder.com/100x40.png?text=LOGO+6" alt="Member 6" /></div>
+                <div class="carousel-logo"><img src="https://via.placeholder.com/100x40.png?text=LOGO+7" alt="Member 7" /></div>
+                <div class="carousel-logo"><img src="https://via.placeholder.com/100x40.png?text=LOGO+8" alt="Member 8" /></div>
+              </div>
             </div>
         </section>
 
