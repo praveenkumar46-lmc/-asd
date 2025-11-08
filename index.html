@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
         :root {
             /* Main Site Colors */
@@ -16,15 +17,12 @@
             --text-dark: #2C2C2C;
             --hero-green: #2d594e; /* The button's base color */
             --text-color: #4B4B4B;
-
-            /* Gradient Colors */
-            --gradient-start-green: #eaf2f0; /* A light tint of the hero-green */
-            --gradient-end: #FFFFFF;
-            --global-background-gradient: linear-gradient(180deg, var(--gradient-start-green) 0%, var(--gradient-end) 70%);
-
-            /* FAB colors */
+            --card-border: #edf3f0;
             --light-peach: #FADAB4;
             --icon-brown: #594A38;
+            --gradient-start-green: #eaf2f0;
+            --gradient-end: #FFFFFF;
+            --global-background-gradient: linear-gradient(180deg, var(--gradient-start-green) 0%, var(--gradient-end) 70%);
         }
 
         body {
@@ -32,7 +30,6 @@
             font-family: 'Poppins', sans-serif;
             color: var(--text-color);
             padding-top: 120px;
-            /* Apply the global gradient background */
             background: var(--global-background-gradient);
             overflow-x: hidden;
         }
@@ -45,399 +42,269 @@
             right: 0;
             z-index: 1000;
             padding: 0 2rem;
-            opacity: 0; /* For animation */
+            opacity: 0;
         }
         
         .navbar-container {
-            max-width: 1280px;
-            margin: 0 auto;
-            background-color: var(--nav-bg);
-            border-radius: 999px;
-            padding: 12px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+            max-width: 1280px; margin: 0 auto; background-color: var(--nav-bg); border-radius: 999px;
+            padding: 12px 20px; display: flex; align-items: center; justify-content: space-between;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
         }
 
-        .nav-logo a {
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 1.1rem;
-            display: flex;
-            align-items: center;
-        }
+        .nav-logo a { text-decoration: none; font-weight: 700; font-size: 1.1rem; display: flex; align-items: center; }
+        .logo { width: 100px; height: auto; }
+        .main-nav { display: flex; align-items: center; gap: 2rem; }
+        .main-nav a { text-decoration: none; color: var(--text-dark); font-weight: 500; font-size: 1rem; transition: color 0.3s; position: relative; padding-bottom: 5px; }
+        .main-nav a.active { font-weight: 600; }
+        .main-nav a.active::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; background-color: var(--text-dark); }
+        .main-nav a:hover { color: #000; }
+        .dropdown-toggle { display: flex; align-items: center; gap: 0.25rem; cursor: pointer; }
+        .nav-actions { display: flex; align-items: center; gap: 1rem; }
 
-        .logo {
-            width: 100px;
-            height: auto; /* Maintain aspect ratio */
-        }
+        .user-icon-btn { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border: 1px solid #ddd; border-radius: 50%; color: var(--text-dark); transition: background-color 0.3s, border-color 0.3s, color 0.3s; }
+        .user-icon-btn:hover { background-color: var(--hero-green); color: white; border-color: var(--hero-green); }
 
-        .main-nav {
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-        }
-
-        .main-nav a {
-            text-decoration: none;
-            color: var(--text-dark);
-            font-weight: 500;
-            font-size: 1rem;
-            transition: color 0.3s;
-            position: relative;
-            padding-bottom: 5px;
-        }
-
-        .main-nav a.active {
-            font-weight: 600;
-        }
+        .contact-btn { background-color: var(--nav-green); color: #FFFFFF; border: none; border-radius: 50px; padding: 8px 10px 8px 24px; font-size: 1rem; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 12px; transition: background-color 0.3s; }
+        .contact-btn:hover { background-color: #112a2a; }
+        .contact-arrow-circle { background-color: #FFFFFF; border-radius: 50%; width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; }
+        .contact-arrow-circle svg { color: var(--nav-green); }
         
-        .main-nav a.active::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background-color: var(--text-dark);
-        }
+        /* --- General Section & Container Styling --- */
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+        .section-header { margin-bottom: 40px; }
+        .eyebrow-text { color: var(--hero-green); font-weight: 600; font-size: 1rem; margin: 0; }
+        .section-header h2 { color: var(--hero-green); font-size: 2.75rem; font-weight: 600; margin: 5px 0 0 0; }
 
-        .main-nav a:hover {
-            color: #000;
-        }
-        
-        .dropdown-toggle {
-            display: flex;
-            align-items: center;
-            gap: 0.25rem;
-            cursor: pointer;
-        }
-        
-        .nav-actions {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .user-icon-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            border: 1px solid #ddd;
-            border-radius: 50%;
-            color: var(--text-dark);
-            transition: background-color 0.3s, border-color 0.3s, color 0.3s;
-        }
-        
-        .user-icon-btn:hover {
-            background-color: var(--hero-green);
-            color: white;
-            border-color: var(--hero-green);
-        }
-
-        .contact-btn {
-            background-color: var(--nav-green);
-            color: #FFFFFF;
-            border: none;
-            border-radius: 50px;
-            padding: 8px 10px 8px 24px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            transition: background-color 0.3s;
-        }
-
-        .contact-btn:hover {
-            background-color: #112a2a;
-        }
-        
-        .contact-arrow-circle {
-            background-color: #FFFFFF;
-            border-radius: 50%;
-            width: 32px;
-            height: 32px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .contact-arrow-circle svg {
-            color: var(--nav-green);
-        }
-        
         /* --- Hero Section --- */
-        .hero-section {
-            display: flex;
-            align-items: center;
-            padding: 40px 40px 60px 40px; 
-            max-width: 1300px;
-            margin: 0 auto;
-            gap: 40px;
-            margin-bottom: 100px;
-        }
-
-        .text-content {
-            flex: 1;
-            max-width: 550px;
-        }
-
-        /* Set opacity for animation */
-        .text-content h1, 
-        .text-content p, 
-        .text-content .shop-btn, 
-        .service-item {
-            opacity: 0;
-        }
-
-        .text-content h1 {
-            font-size: 64px;
-            font-weight: 600;
-            color: var(--hero-green);
-            line-height: 1.1;
-            margin: 0 0 25px 0;
-        }
-
-        .text-content p {
-            font-size: 18px;
-            line-height: 1.6;
-            margin-bottom: 40px;
-            max-width: 450px;
-        }
-
-        .shop-btn {
-            background-color: var(--hero-green);
-            color: #FFFFFF;
-            border: none;
-            border-radius: 50px;
-            padding: 16px 40px;
-            font-size: 18px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .shop-btn:hover {
-            background-color: #1b4e41; /* Darker shade of hero-green */
-        }
+        .hero-section { display: flex; align-items: center; padding: 40px 40px 60px 40px; max-width: 1300px; margin: 0 auto; gap: 40px; margin-bottom: 0; }
+        .text-content { flex: 1; max-width: 550px; }
+        .text-content h1, .text-content p, .text-content .shop-btn, .hero-checklist li { opacity: 0; }
+        .text-content h1 { font-size: 64px; font-weight: 600; color: var(--hero-green); line-height: 1.1; margin: 0 0 25px 0; }
+        .text-content p { font-size: 18px; line-height: 1.6; margin-bottom: 40px; max-width: 450px; }
+        .shop-btn { background-color: var(--hero-green); color: #FFFFFF; border: none; border-radius: 50px; padding: 16px 40px; font-size: 18px; font-weight: 500; cursor: pointer; transition: background-color 0.3s; }
+        .shop-btn:hover { background-color: #1b4e41; }
         
-        /* --- Hero Services Icons --- */
-        .hero-services {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin-top: 60px;
-        }
-
-        .service-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            width: 80px;
-        }
-
-        .service-item svg {
-            width: 36px;
-            height: 36px;
-            color: var(--hero-green);
-            margin-bottom: 12px;
-        }
-
-        .service-item span {
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--hero-green);
-            line-height: 1.3;
-        }
+        .hero-checklist { list-style: none; padding: 0; margin: 40px 0 0 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px 24px; }
+        .hero-checklist li { display: flex; align-items: center; gap: 12px; font-size: 1rem; font-weight: 500; color: var(--hero-green); }
+        .hero-checklist i { font-size: 1.25rem; color: var(--hero-green); width: 24px; text-align: center; }
         
-        /* --- Hero Image Animation Styles --- */
-        .image-content {
-            flex: 1.2;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            min-height: 450px;
-            opacity: 0; /* For animation */
-        }
-        
-        #animated-image {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            /* Tell the browser these will change for performance */
-            will-change: transform, width, height, border-radius;
-        }
+        .image-content { flex: 1.2; display: flex; justify-content: center; align-items: center; position: relative; min-height: 450px; opacity: 0; }
+        #animated-image { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; will-change: transform, width, height, border-radius; }
 
         /* --- "What We Do" Section --- */
-        .what-we-do-section {
+        .what-we-do-section { padding: 40px 0 0 0; background-color: rgb(237, 248, 247); }
+        .what-we-do-content { display: flex; align-items: center; gap: 3rem; }
+        #image-target-container { flex: 1; width: 100%; aspect-ratio: 1 / 1; border-radius: 24px; }
+        .what-we-do-text { flex: 1; }
+        .what-we-do-text p { font-size: 1.1rem; line-height: 1.7; color: var(--text-color); margin: 0 0 30px 0; }
+        .schedule-btn { display: inline-flex; align-items: center; gap: 10px; background-color: var(--nav-green); color: #FFFFFF; padding: 14px 24px; border-radius: 999px; text-decoration: none; font-weight: 600; transition: background-color 0.3s ease; }
+        .schedule-btn:hover { background-color: #112a2a; }
+        .schedule-btn svg { width: 20px; height: 20px; }
+
+        /* --- Visionaries Section --- */
+        .visionaries-section { padding: 40px 0; }
+        .visionaries-title { text-align: center; font-size: 2.75rem; font-weight: 600; margin-bottom: 12px; color: var(--hero-green); }
+        .visionaries-subtitle { text-align: center; font-size: 1.2rem; color: var(--text-color); margin-bottom: 50px; }
+        .card-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0px; background: #fff; border-radius: 16px; box-shadow: 0 2px 28px 0 rgba(40, 76, 73, 0.06); overflow: hidden; margin: auto; }
+        .card { text-align: center; padding: 44px 18px 28px 18px; display: flex; flex-direction: column; align-items: center; justify-content: center; border-right: 1px solid var(--card-border); opacity: 0; transform: scale(0.85); will-change: opacity, transform; }
+        .card.in-view { animation: popIn 0.7s cubic-bezier(.24,1.54,.68,.98) forwards; animation-delay: var(--card-delay, 0s); }
+        .card:nth-child(1) { --card-delay: 0.15s; } .card:nth-child(2) { --card-delay: 0.35s; } .card:nth-child(3) { --card-delay: 0.55s; } .card:nth-child(4) { --card-delay: 0.75s; }
+        .card:last-child { border-right: none; }
+        @keyframes popIn { 0% { opacity: 0; transform: scale(0.85); } 60% { opacity: 1; transform: scale(1.1); } 100% { opacity: 1; transform: scale(1); } }
+        .card-icon { font-size: 2.8rem; color: var(--hero-green); margin-bottom: 12px; }
+        .card-title { font-size: 1.1rem; font-weight: 600; color: var(--hero-green); line-height: 1.4; }
+        
+        /* --- NEW: SERVICES SECTION STYLES --- */
+        .services-section {
+            width: 500%;
             padding: 80px 0;
-            /* FIX: Removed solid background to let the body gradient show through */
-            background-color: #eaf2f0;
-        }
-        
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .section-header {
-            margin-bottom: 40px;
-        }
-
-        .eyebrow-text {
-            color: var(--nav-green);
-            font-weight: 600;
-            font-size: 1rem;
-            margin: 0;
-        }
-
-        .section-header h2 {
-            color: var(--nav-green);
-            font-size: 2.75rem;
-            font-weight: 700;
-            margin: 5px 0 0 0;
-        }
-
-        .what-we-do-content {
             display: flex;
-            align-items: center;
-            gap: 3rem;
+            align-items: stretch;
+            background: linear-gradient(#f6fcfc,rgb(216, 230, 227));
+            box-sizing: border-box;
+            overflow: hidden;
         }
-        
-        #image-target-container {
-            flex: 1;
+
+        .services-left {
+            flex: 0 0 420px;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-end;
+            padding: 2.5rem 2vw 2.5rem 6vw;
+            box-sizing: border-box;
+        }
+
+        .services-left .text-block {
             width: 100%;
-            aspect-ratio: 1 / 1; 
-            border-radius: 24px;
-            /* This div is now just a positioning placeholder */
+            max-width: 320px;
+            text-align: left;
         }
 
-        .what-we-do-text {
-            flex: 1;
-        }
-
-        .what-we-do-text p {
-            font-size: 1.1rem;
-            line-height: 1.7;
-            color: var(--nav-green);
-            margin: 0 0 30px 0;
-        }
-        
-        .schedule-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background-color: var(--nav-green);
-            color: #FFFFFF;
-            padding: 14px 24px;
-            border-radius: 999px;
-            text-decoration: none;
+        .services-left .text-block h2 {
+            font-size: 2.75rem; /* Match other section titles */
             font-weight: 600;
-            transition: background-color 0.3s ease;
+            color: var(--hero-green);
+            margin: 0 0 0.8rem 0;
+            line-height: 1.2;
         }
 
-        .schedule-btn:hover {
-            background-color: #112a2a;
+        .services-left .text-block p {
+            font-size: 1.1rem; /* Match other body text */
+            color: var(--text-color);
+            margin: 0 0 2rem 0;
+            line-height: 1.7;
+            font-weight: 400;
         }
 
-        .schedule-btn svg {
-            width: 20px;
-            height: 20px;
-        }
-        
-        /* --- Floating Action Button --- */
-        .chat-fab {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background-color: var(--light-peach);
+        .scroll-nav { display: flex; gap: 1rem; margin-top: 0.7rem; }
+
+        .scroll-btn {
+            background: var(--nav-green);
             border: none;
-            width: 60px;
-            height: 60px;
             border-radius: 50%;
+            width: 44px;
+            height: 44px;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 1.2rem;
+            color: #fff;
             cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            transition: transform 0.2s;
-            z-index: 999;
+            transition: background-color 0.2s;
+        }
+
+        .scroll-btn:hover { background: #112a2a; }
+
+        .services-right {
+            flex: 1 1 0;
+            display: flex;
+            align-items: center;
+            padding: 2rem 0 2rem 2vw;
+            box-sizing: border-box;
+            min-width: 0;
+        }
+
+        .horizontal-scroll-container {
+            display: flex;
+            overflow-x: auto;
+            gap: 28px;
+            scroll-behavior: auto;
+            padding: 15px 4vw 20px 0;
+            min-width: 100%;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        .horizontal-scroll-container::-webkit-scrollbar { display: none; }
+
+        .service-card {
+            flex: 0 0 285px;
+            height: 350px;
+            background-color: #fff; /* Match other cards */
+            background-size: cover;
+            background-position: center;
+            border-radius: 1.5rem;
+            box-shadow: 0 4px 24px rgba(40, 76, 73, 0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            transition: transform 0.25s, box-shadow 0.25s;
+            cursor: pointer;
+            overflow: hidden;
         }
         
-        .chat-fab:hover {
-            transform: scale(1.1);
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 30px rgba(40, 76, 73, 0.1);
         }
 
-        .chat-fab svg {
-            width: 28px;
-            height: 28px;
-            color: var(--icon-brown);
+        .service-card .card-top { padding: 1.25rem 1.7rem 0.5rem; }
+
+        .service-card .service-number {
+            background: var(--gradient-start-green);
+            border-radius: 0.62rem;
+            padding: 0.32rem 0.85rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--hero-green);
+            letter-spacing: 1px;
+            display: inline-block;
         }
+
+        .service-card .card-bottom {
+            background: #fff;
+            padding: 1.17rem 1.7rem 1.4rem;
+            text-align: left;
+        }
+
+        .service-card .card-bottom h3 {
+            margin: 0;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--hero-green);
+            line-height: 1.4;
+        }
+
+        /* --- Animation for Services Section --- */
+        .services-section .animated-item {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .services-section.is-visible .animated-item {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .services-section.is-visible .service-card:nth-child(1) { transition-delay: 0.1s; }
+        .services-section.is-visible .service-card:nth-child(2) { transition-delay: 0.2s; }
+        .services-section.is-visible .service-card:nth-child(3) { transition-delay: 0.3s; }
+        .services-section.is-visible .service-card:nth-child(4) { transition-delay: 0.4s; }
+        .services-section.is-visible .service-card:nth-child(5) { transition-delay: 0.5s; }
+
+        /* --- Floating Action Button --- */
+        .chat-fab { position: fixed; bottom: 30px; right: 30px; background-color: var(--light-peach); border: none; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); transition: transform 0.2s; z-index: 999; }
+        .chat-fab:hover { transform: scale(1.1); }
+        .chat-fab svg { width: 28px; height: 28px; color: var(--icon-brown); }
 
         /* --- Responsive Adjustments --- */
-        @media (max-width: 1100px) {
-            .hero-services {
-                justify-content: center;
-            }
-        }
+        @media (max-width: 1100px) { .hero-checklist { justify-content: center; margin-left: auto; margin-right: auto; } }
+        @media (max-width: 992px) { .main-nav { display: none; } .floating-header { padding: 0 1rem; } }
 
-        @media (max-width: 992px) {
-            /* NOTE: A hamburger menu would be needed for a full mobile experience */
-            .main-nav {
-                display: none;
-            }
-             .floating-header {
-                padding: 0 1rem;
-             }
+        @media (max-width: 900px) {
+            .card-grid { grid-template-columns: repeat(2, 1fr); }
+            .card:nth-child(2) { border-right: none; }
+            .card:nth-child(1), .card:nth-child(2) { border-bottom: 1px solid var(--card-border); }
+            /* Services section responsive */
+            .services-section { flex-direction: column; padding: 40px 0; }
+            .services-left { align-items: flex-start; padding: 0 6vw 1.5rem; max-width: 100%; }
+            .services-left .text-block { max-width: none; }
+            .services-right { width: 100%; max-width: 100vw; padding: 0 0 1.3rem 6vw; }
+            .scroll-nav { display: none; }
+            .horizontal-scroll-container { scroll-snap-type: x mandatory; }
+            .service-card { scroll-snap-align: start; }
         }
 
         @media (max-width: 768px) {
-            body {
-                padding-top: 100px;
-            }
-            .hero-section {
-                flex-direction: column;
-                text-align: center;
-                padding: 40px 20px;
-                margin-bottom: 50px;
-            }
-            .text-content {
-                order: 2;
-                max-width: 100%;
-            }
-            .text-content p {
-                margin-left: auto;
-                margin-right: auto;
-            }
-            .image-content {
-                order: 1;
-                margin-bottom: 2rem;
-                min-height: 300px;
-                width: 100%;
-            }
-            .what-we-do-content {
-                flex-direction: column;
-            }
-            .section-header h2 {
-                font-size: 2.25rem;
-            }
-            .hero-services {
-                margin-top: 40px;
-            }
+            body { padding-top: 100px; }
+            .hero-section { flex-direction: column; text-align: center; padding: 40px 20px; margin-bottom: 30px; }
+            .text-content { order: 2; max-width: 100%; }
+            .text-content p { margin-left: auto; margin-right: auto; }
+            .image-content { order: 1; margin-bottom: 2rem; min-height: 300px; width: 100%; }
+            .what-we-do-content { flex-direction: column; }
+            .section-header h2, .visionaries-title, .services-left .text-block h2 { font-size: 2.25rem; }
+            .hero-checklist { grid-template-columns: 1fr; text-align: left; max-width: 300px; margin: auto; }
+        }
+        
+        @media (max-width: 600px) {
+            .card-grid { grid-template-columns: 1fr; }
+            .card { border-right: none !important; border-bottom: 1px solid var(--card-border); }
+            .card:last-child { border-bottom: none; }
+            /* Services section responsive */
+            .service-card { flex-basis: 75vw; }
+            .services-left { padding: 0 5vw 1.5rem; }
+            .services-right { padding: 0 0 2rem 5vw; }
         }
     </style>
 </head>
@@ -447,100 +314,100 @@
         <nav class="navbar-container">
             <div class="nav-logo">
                 <a href="#">
-                    <!-- FIX: Replaced broken local image with a placeholder SVG -->
                     <img src="Food_M.png" alt="Food Maveriks Logo" class="logo">
                 </a>
             </div>
             <div class="main-nav">
-                <a href="#" class="active">Home</a>
-                <a href="#">About</a>
-                <a href="#">Service</a>
-                <a href="#" class="dropdown-toggle">Others
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </a>
+                <a href="#" class="active">Home</a><a href="#">About</a><a href="#">Service</a>
+                <a href="#" class="dropdown-toggle">Others <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
             </div>
             <div class="nav-actions">
-                <a href="#" class="user-icon-btn" aria-label="User account">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M20 21V19C20 16.7909 18.2091 15 16 15H8C5.79086 15 4 16.7909 4 19V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M12 11C14.2091 11 16 9.20914 16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7C8 9.20914 9.79086 11 12 11Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </a>
-                <a href="#" class="contact-btn">
-                    Contact Us
-                    <span class="contact-arrow-circle">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                           <path d="M7 17L17 7M17 7H10M17 7V14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </span>
-                </a>
+                <a href="#" class="user-icon-btn" aria-label="User account"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 21V19C20 16.7909 18.2091 15 16 15H8C5.79086 15 4 16.7909 4 19V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 11C14.2091 11 16 9.20914 16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7C8 9.20914 9.79086 11 12 11Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+                <a href="#" class="contact-btn">Contact Us <span class="contact-arrow-circle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 17L17 7M17 7H10M17 7V14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
             </div>
         </nav>
     </header>
 
     <main>
-        <section class="hero-section">
+        <section class="hero-section" style="margin-left: 40px;">
             <div class="text-content">
                 <h1>From Idea to Aisle</h1>
                 <p>Build successful food & beverage brand with our R&D first food tech consulting</p>
                 <button class="shop-btn">Book a Free Consultation</button>
-
-                <div class="hero-services">
-                    <div class="service-item">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><path d="M10 13a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"></path><path d="M10 19a1 1.001 1.001 0 0 0 0-2 1 1 0 0 0 0 2z"></path><path d="m14 17-4-4"></path></svg>
-                        <span>Formulation</span>
-                    </div>
-                    <div class="service-item">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline><polyline points="16 7 22 7 22 13"></polyline></svg>
-                        <span>Pilot & Scale Up</span>
-                    </div>
-                    <div class="service-item">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a2 2 0 0 0-1.1 1.69l-.02 9.48a2 2 0 0 0 1.1 1.69l8.56 3.9a2 2 0 0 0 1.66 0l8.56-3.9a2 2 0 0 0 1.1-1.69l.02-9.48a2 2 0 0 0-1.1-1.69z"></path><path d="m9 12 2 2 4-4"></path></svg>
-                        <span>FSSAI & Claims</span>
-                    </div>
-                    <div class="service-item">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg>
-                        <span>Shelf-Life</span>
-                    </div>
-                    <div class="service-item">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22v-5"></path><path d="M10 13a2 2 0 1 0 4 0 2 2 0 0 0-4 0z"></path><path d="M12 22a8.99 8.99 0 0 0-8.69-5.46L3 16.27V13a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v3.27l-.31.27A8.99 8.99 0 0 0 12 22z"></path><path d="M2 13h20"></path><path d="M18 11V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v7"></path></svg>
-                        <span>Factory Setup</span>
-                    </div>
-                     <div class="service-item">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 13.4V7.5L14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h5.5"></path><polyline points="14 2 14 8 20 8"></polyline><path d="M18.4 22a2.4 2.4 0 1 0 0-4.8 2.4 2.4 0 0 0 0 4.8Z"></path><path d="M14.8 18.2a2.4 2.4 0 1 0 0-4.8 2.4 2.4 0 0 0 0 4.8Z"></path><path d="M17.8 17.2 15.8 15"></path></svg>
-                        <span>Contract<br>Manufacturing</span>
-                    </div>
-                </div>
-
+                <ul class="hero-checklist">
+                    <li><i class="fas fa-flask-vial"></i><span>Formulation</span></li>
+                    <li><i class="fas fa-clipboard-check"></i><span>FSSAI & Claims</span></li>
+                    <li><i class="fas fa-chart-line"></i><span>Pilot & Scale Up</span></li>
+                    <li><i class="fas fa-hourglass-half"></i><span>Shelf-Life</span></li>
+                    <li><i class="fas fa-industry"></i><span>Factory Setup</span></li>
+                    <li><i class="fas fa-handshake-simple"></i><span>Contract Manufacturing</span></li>
+                </ul>
             </div>
             <div class="image-content">
-                <!-- FIX: Replaced broken local image with a relevant stock photo -->
                 <img src="image1.png" alt="Bottles of fresh juice with ingredients" id="animated-image">
             </div>
         </section>
 
         <section class="what-we-do-section">
             <div class="container">
-                <div class="section-header">
-                    <p class="eyebrow-text">• About Us</p>
-                    <h2>What We Do</h2>
-                </div>
+                <div class="section-header"><h2>About us</h2></div>
                 <div class="what-we-do-content">
                     <div id="image-target-container"></div>
                     <div class="what-we-do-text">
-                        <p>
-                            R&D first food tech consultants helping brands go From Idea to Aisle. We blend chef craft, food science, and FSSAI-ready compliance to build scalable, shelf-stable products—pilot to factory, paperwork to launch. Let’s build something people love.<br>
-                            <!-- FIX: Using <strong> for semantic importance -->
-                            <strong>Food Maveriks:</strong> Where food vision becomes market reality
-                        </p>
-                        <a href="#" class="schedule-btn">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"></path>
-                            </svg>
-                            <span>Schedule Meeting</span>
-                        </a>
+                        <h1>What We Do</h1>
+                        <p>R&D first food tech consultants helping brands go From Idea to Aisle. We blend chef craft, food science, and FSSAI-ready compliance to build scalable, shelf-stable products—pilot to factory, paperwork to launch. Let’s build something people love.<br><strong>Food Maveriks:</strong> Where food vision becomes market reality</p>
+                        <a href="#" class="schedule-btn"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"></path></svg><span>Schedule Meeting</span></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="visionaries-section">
+            <div class="container">
+                <h2 class="visionaries-title">Tailored Solution for Visionaries</h2>
+                <p class="visionaries-subtitle">We empower food brands at every stage of their journey.</p>
+                <div class="card-grid">
+                    <div class="card"><span class="card-icon"><i class="fas fa-lightbulb"></i></span><div class="card-title">Aspiring food<br>entrepreneurs</div></div>
+                    <div class="card"><span class="card-icon"><i class="fas fa-box-open"></i></span><div class="card-title">Emerging Food<br>Startups</div></div>
+                    <div class="card"><span class="card-icon"><i class="fas fa-seedling"></i></span><div class="card-title">Growth Stage<br>Brands</div></div>
+                    <div class="card"><span class="card-icon"><i class="fas fa-university"></i></span><div class="card-title">Established<br>Brands</div></div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- NEWLY INTEGRATED SERVICES SECTION -->
+        <section class="services-section">
+            <div class="services-left">
+                <div class="text-block animated-item">
+                    <h2>Our Services</h2>
+                    <p>Your R&D partner for clean-label, functional, and market-fit products complete with documentation, claims, and tech transfer.</p>
+                    <div class="scroll-nav">
+                        <button id="scrollLeftBtn" class="scroll-btn"><i class="fa fa-arrow-left"></i></button>
+                        <button id="scrollRightBtn" class="scroll-btn"><i class="fa fa-arrow-right"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="services-right">
+                <div class="horizontal-scroll-container" id="scrollContainer">
+                    <div class="service-card animated-item" style="background-image: url('https://images.unsplash.com/photo-1543362906-acfc16c67564?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=600');">
+                        <div class="card-top"><span class="service-number">01</span></div>
+                        <div class="card-bottom"><h3>Clean-Label Formulation</h3></div>
+                    </div>
+                    <div class="service-card animated-item" style="background-image: url('https://images.unsplash.com/photo-1581093450021-4a7360b9a296?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=600');">
+                        <div class="card-top"><span class="service-number">02</span></div>
+                        <div class="card-bottom"><h3>Functional Foods</h3></div>
+                    </div>
+                    <div class="service-card animated-item" style="background-image: url('https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=600');">
+                        <div class="card-top"><span class="service-number">03</span></div>
+                        <div class="card-bottom"><h3>Market-Fit & Launch</h3></div>
+                    </div>
+                    <div class="service-card animated-item" style="background-image: url('https://images.unsplash.com/photo-1556742053-99d3a04a8b7c?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=600');">
+                        <div class="card-top"><span class="service-number">04</span></div>
+                        <div class="card-bottom"><h3>Contract Manufacturing</h3></div>
+                    </div>
+                    <div class="service-card animated-item" style="background-image: url('https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=600');">
+                        <div class="card-top"><span class="service-number">05</span></div>
+                        <div class="card-bottom"><h3>Branding & Packaging</h3></div>
                     </div>
                 </div>
             </div>
@@ -558,49 +425,84 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             gsap.registerPlugin(ScrollTrigger);
-
             const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-
-            // --- Initial page load animations ---
             tl.to('.floating-header', { yPercent: 0, autoAlpha: 1, duration: 1 });
             tl.to(['.text-content h1', '.text-content p', '.text-content .shop-btn'], { y: 0, autoAlpha: 1, duration: 0.8, stagger: 0.2 }, "-=0.6");
             tl.to('.image-content', { autoAlpha: 1, scale: 1, duration: 1.2 }, "<");
-            tl.to('.service-item', { y: 0, autoAlpha: 1, duration: 0.5, stagger: 0.1 }, "-=0.8");
+            tl.to('.hero-checklist li', { y: 0, autoAlpha: 1, duration: 0.5, stagger: 0.1 }, "-=0.8");
             
-            // Note: Changed from `fromTo` to `to` as the initial states are set in CSS (opacity: 0)
-
-            // --- Scroll-based image animation ---
             const animatedImage = document.getElementById("animated-image");
             const imageTarget = document.getElementById("image-target-container");
             
             if (animatedImage && imageTarget) {
-                // Use GSAP's matchMedia for responsive animations
-                gsap.matchMedia().add({
-                    isDesktop: "(min-width: 769px)",
-                    isMobile: "(max-width: 768px)"
-                }, (context) => {
-                    let { isDesktop, isMobile } = context.conditions;
-
+                gsap.matchMedia().add({ isDesktop: "(min-width: 769px)", isMobile: "(max-width: 768px)" }, (context) => {
+                    let { isDesktop } = context.conditions;
                     gsap.to(animatedImage, {
-                        width: () => imageTarget.offsetWidth,
-                        height: () => imageTarget.offsetHeight,
+                        width: () => imageTarget.offsetWidth, height: () => imageTarget.offsetHeight,
                         x: () => imageTarget.getBoundingClientRect().left - animatedImage.getBoundingClientRect().left,
                         y: () => imageTarget.getBoundingClientRect().top - animatedImage.getBoundingClientRect().top,
-                        borderRadius: "24px",
-                        ease: "none",
+                        borderRadius: "24px", ease: "none",
                         scrollTrigger: {
-                            trigger: ".what-we-do-section",
-                            start: "top bottom",
-                            // FIX: Changed the 'end' trigger for mobile to be more sensible.
-                            // The animation now completes when the top of the section reaches the center of the viewport.
+                            trigger: ".what-we-do-section", start: "top bottom",
                             end: isDesktop ? "top top+=100" : "top center",
-                            scrub: true,
-                            invalidateOnRefresh: true, // Crucial for recalculating on resize
+                            scrub: true, invalidateOnRefresh: true, 
                         }
                     });
                 });
             }
         });
+    </script>
+    
+    <!-- Script for Scroll-triggered Animations -->
+    <script>
+        const observers = [];
+        const sectionsToAnimate = [
+            { selector: '.card', class: 'in-view' },
+            { selector: '.services-section', class: 'is-visible' }
+        ];
+
+        sectionsToAnimate.forEach(config => {
+            const elements = document.querySelectorAll(config.selector);
+            if(elements.length > 0) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add(config.class);
+                        }
+                    });
+                }, { threshold: 0.1 });
+
+                if(config.selector === '.services-section') {
+                    // For the whole section, observe the section itself
+                    observer.observe(document.querySelector('.services-section'));
+                } else {
+                    // For individual cards, observe each card
+                    elements.forEach(el => observer.observe(el));
+                }
+                observers.push(observer);
+            }
+        });
+    </script>
+
+    <!-- Script for Services Section Scroll Buttons -->
+    <script>
+        const scrollContainer = document.getElementById('scrollContainer');
+        const scrollLeftBtn = document.getElementById('scrollLeftBtn');
+        const scrollRightBtn = document.getElementById('scrollRightBtn');
+        
+        if (scrollLeftBtn && scrollRightBtn) {
+            scrollContainer.style.scrollBehavior = 'smooth';
+
+            function getScrollAmount() {
+                const firstCard = scrollContainer.querySelector('.service-card');
+                if (!firstCard) return 300; 
+                const containerStyle = window.getComputedStyle(scrollContainer);
+                const gap = parseFloat(containerStyle.gap) || 32;
+                return firstCard.offsetWidth + gap;
+            }
+            scrollLeftBtn.addEventListener('click', () => { scrollContainer.scrollBy({ left: -getScrollAmount() }); });
+            scrollRightBtn.addEventListener('click', () => { scrollContainer.scrollBy({ left: getScrollAmount() }); });
+        }
     </script>
 </body>
 </html>
