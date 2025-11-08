@@ -92,7 +92,7 @@
         #animated-image { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; will-change: transform, width, height, border-radius; }
 
         /* --- "What We Do" Section --- */
-        .what-we-do-section { padding: 40px 0 0 0; background: -webkit-linear-gradient(rgb(227, 238, 234),rgb(236, 241, 241)); }
+        .what-we-do-section { padding: 40px 0 0 0; background-color: -webkit-linear-gradient(rgb(248, 250, 250),rgb(236, 241, 241));; }
         .what-we-do-content { display: flex; align-items: center; gap: 3rem; }
         #image-target-container { flex: 1; width: 100%; aspect-ratio: 1 / 1; border-radius: 24px; }
         .what-we-do-text { flex: 1; }
@@ -295,10 +295,9 @@
             .what-we-do-content { flex-direction: column; }
             .section-header h2, .visionaries-title, .services-left .text-block h2 { font-size: 2.25rem; }
             
-            /* UPDATED: Checklist alignment fix */
             .hero-checklist {
-                grid-template-columns: 1fr; /* Single column on mobile */
-                display: inline-grid;      /* This is the key change */
+                grid-template-columns: 1fr;
+                display: inline-grid;
                 text-align: left;
             }
         }
@@ -308,7 +307,7 @@
             .card { border-right: none !important; border-bottom: 1px solid var(--card-border); }
             .card:last-child { border-bottom: none; }
             /* Services section responsive */
-            .service-card { flex-basis: 75vw; height: 350px; /* Adjust height on mobile */ }
+            .service-card { flex-basis: 75vw; height: 350px; }
             .services-left { padding: 0 5vw 1.5rem; }
             .services-right { padding: 0 0 2rem 5vw; }
         }
@@ -320,7 +319,7 @@
         <nav class="navbar-container">
             <div class="nav-logo">
                 <a href="#">
-                    <img src="Food_M.png" alt="Food Maveriks Logo" class="logo">
+                    <img src="food_m.png" alt="Food Maveriks Logo" class="logo">
                 </a>
             </div>
             <div class="main-nav">
@@ -335,7 +334,8 @@
     </header>
 
     <main>
-        <section class="hero-section" style="margin-left: 40px;">
+        <!-- UPDATED: Removed inline style from this section -->
+        <section class="hero-section">
             <div class="text-content">
                 <h1>From Idea to Aisle</h1>
                 <p>Build successful food & beverage brand with our R&D first food tech consulting</p>
@@ -425,7 +425,7 @@
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
     </button>
     
-    <!-- GSAP Libraries & Script -->
+    <!-- SCRIPTS (No changes here) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script>
@@ -458,8 +458,6 @@
             }
         });
     </script>
-    
-    <!-- Script for Scroll-triggered Animations -->
     <script>
         const observers = [];
         const sectionsToAnimate = [
@@ -479,18 +477,14 @@
                 }, { threshold: 0.1 });
 
                 if(config.selector === '.services-section') {
-                    // For the whole section, observe the section itself
                     observer.observe(document.querySelector('.services-section'));
                 } else {
-                    // For individual cards, observe each card
                     elements.forEach(el => observer.observe(el));
                 }
                 observers.push(observer);
             }
         });
     </script>
-
-    <!-- Script for Services Section Scroll Buttons -->
     <script>
         const scrollContainer = document.getElementById('scrollContainer');
         const scrollLeftBtn = document.getElementById('scrollLeftBtn');
